@@ -122,17 +122,20 @@ export default {
             this.pageTotal = result.result.length;
         },
         async get_search_list(name, offset, limit) {
+            const searchResult = await getSearchList(name, offset, limit);
+            this.tableData = searchResult.result;
+        },
+        async get_search_list_length(name, offset, limit) {
             const result = await getSearchList(name, offset, limit);
             this.pageTotal = result.result.length;
-            const searchResult = await getSearchList(name, 0, 10);
-            this.tableData = searchResult.result;
         },
         // 触发搜索按钮
         handleSearch() {
             this.$set(this.query, 'pageIndex', 1);
             if (this.query.name) {
                 this.isSearch = true;
-                this.get_search_list(this.query.name, 0, 18446744073709551615);
+                this.get_search_list_length(this.query.name, 0, 18446744073709551615);
+                this.get_search_list(this.query.name, 0, 10)
             } else {
                 this.isSearch = false;
                 this.get_anime_list(0, 10);
@@ -146,9 +149,11 @@ export default {
                 type: 'warning'
             })
                 .then(() => {
-                    deleteAnimeById(row.id);
-                    this.$message.success('删除成功');
-                    this.get_anime_list((this.query.pageIndex - 1) * 10, 10);
+                    deleteAnimeById(row.id).then(() => {
+                        this.$message.success('删除成功');
+                        this.get_anime_list((this.query.pageIndex - 1) * 10, 10);
+                    })
+                    
                 })
                 .catch(() => {});
         },
@@ -194,7 +199,7 @@ export default {
             if (!this.isSearch) {
                 this.get_anime_list((val - 1) * 10, 10);
             } else {
-                this.get_search_list((val - 1) * 10, 10);
+                this.get_search_list(this.query.name,(val - 1) * 10, 10);
             }
         }
     }

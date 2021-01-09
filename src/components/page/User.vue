@@ -135,17 +135,20 @@ export default {
             this.pageTotal = result.length;
         },
         async get_search_list(name, offset, limit) {
+            const searchResult = await getSearchList(name, offset, limit);
+            this.tableData = searchResult;
+        },
+        async get_search_list_length(name, offset, limit) {
             const result = await getSearchList(name, offset, limit);
             this.pageTotal = result.length;
-            const searchResult = await getSearchList(name, 0, 2);
-            this.tableData = searchResult;
         },
         // 触发搜索按钮
         handleSearch() {
             this.$set(this.query, 'pageIndex', 1);
             if (this.query.name) {
                 this.isSearch = true;
-                this.get_search_list(this.query.name, 0, 18446744073709551615);
+                this.get_search_list_length(this.query.name, 0, 18446744073709551615);
+                this.get_search_list(this.query.name, 0, 2)
             } else {
                 this.isSearch = false;
                 this.get_user_list(0, 2);
@@ -159,9 +162,11 @@ export default {
                 type: 'warning'
             })
                 .then(() => {
-                    deleteUserById(row.id);
-                    this.$message.success('删除成功');
-                    this.get_user_list((this.query.pageIndex - 1) * 2, 2);
+                    deleteUserById(row.id).then(() => {
+                        this.$message.success('删除成功');
+                        this.get_user_list((this.query.pageIndex - 1) * 2, 2);
+                    })
+                    
                 })
                 .catch(() => {});
         },
@@ -219,7 +224,7 @@ export default {
             if (!this.isSearch) {
                 this.get_user_list((val - 1) * 2, 2);
             } else {
-                this.get_search_list((val - 1) * 2, 2);
+                this.get_search_list(this.query.name,(val - 1) * 2, 2);
             }
         }
     }

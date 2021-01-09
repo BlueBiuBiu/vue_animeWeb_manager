@@ -20,31 +20,25 @@ export default new Router({
                     meta: { title: '系统首页' }
                 },
                 {
-                    path: '/table',
-                    component: () => import(/* webpackChunkName: "table" */ '../components/page/BaseTable.vue'),
+                    path: '/anime',
+                    component: () => import(/* webpackChunkName: "table" */ '../components/page/AnimeList.vue'),
                     meta: { title: '动漫列表' }
                 },
                 {
-                    path: '/tabs',
-                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/Tabs.vue'),
+                    path: '/user',
+                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/User.vue'),
                     meta: { title: '用户管理' }
                 },
                 {
-                    path: '/form',
-                    component: () => import(/* webpackChunkName: "form" */ '../components/page/BaseForm.vue'),
-                    meta: { title: '文件上传' }
-                },
-                {
-                    // 图片上传组件
                     path: '/upload',
-                    component: () => import(/* webpackChunkName: "upload" */ '../components/page/Upload.vue'),
+                    component: () => import(/* webpackChunkName: "form" */ '../components/page/Upload.vue'),
                     meta: { title: '文件上传' }
                 },
                 {
                     // 国际化组件
-                    path: '/i18n',
-                    component: () => import(/* webpackChunkName: "i18n" */ '../components/page/I18n.vue'),
-                    meta: { title: '国际化' }
+                    path: '/comment',
+                    component: () => import(/* webpackChunkName: "i18n" */ '../components/page/Comment.vue'),
+                    meta: { title: '评论列表' }
                 },
                 {
                     path: '/404',

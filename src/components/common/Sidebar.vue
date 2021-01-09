@@ -63,12 +63,12 @@ export default {
                 },
                 {
                     icon: 'el-icon-lx-cascades',
-                    index: 'table',
+                    index: 'anime',
                     title: '动漫列表'
                 },
                 {
                     icon: 'el-icon-lx-copy',
-                    index: 'tabs',
+                    index: 'user',
                     title: '用户管理'
                 },
                 {
@@ -77,19 +77,15 @@ export default {
                     title: '文件上传',
                     subs: [
                         {
-                            index: 'form',
-                            title: '上传动漫'
-                        },
-                        {
                             index: 'upload',
-                            title: '文件上传'
+                            title: '上传动漫'
                         }
                     ]
                 },              
                 {
                     icon: 'el-icon-lx-global',
-                    index: 'i18n',
-                    title: '国际化功能'
+                    index: 'comment',
+                    title: '评论列表'
                 }            
             ]
         };

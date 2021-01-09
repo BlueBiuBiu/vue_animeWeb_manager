@@ -52,3 +52,40 @@ export function deleteUserCollectById(id,collect){
     }
   })
 }
+
+export function getCommentList(offset,limit){
+  return request({
+    url: "/comment/user/list",
+    params: {
+      offset,
+      limit
+    }
+  })
+}
+
+export function updateCommentById(id,content){
+  return request({
+    url: `/comment/update/${id}`,
+    method: "POST",
+    data: {
+      content
+    }
+  })
+}
+
+export function deleteCommentById(id){
+  return request({
+    url: `/comment/delete/${id}`,
+    method: "POST"
+  })
+}
+
+export function getCommentSearchList(name,offset,limit){
+  return request({
+    url: `/comment/search/list/${name}`,
+    params: {
+      offset,
+      limit
+    }
+  })
+}
